@@ -76,6 +76,7 @@ def _draw_bar(data: dict, title1: str, title2: str, filepath: str):
             plt.text(x, y - 0.1, '{}'.format(y), ha='center', va='top')
     plt.tight_layout()
     plt.savefig(filepath)
+    print('Figure {} generated.'.format(filepath))
     plt.close()
 
 
