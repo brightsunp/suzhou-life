@@ -1,0 +1,7 @@
+# buffer
+.idea/
+__pycache__/
+venv/
+
+# in progress
+powerbi/
