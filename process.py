@@ -33,23 +33,28 @@ def load_data():
     return mydicts
 
 
+# update data and generate daily report
 def update_data(date: str, **kwargs):
     assert date not in all_data, 'There exists a record on {}, pls check the date!'.format(date)
     consume = abs(kwargs.pop('consume', 0))
     assert sum(kwargs.values()) == 0, 'The sum profits is {}, not zero!'.format(sum(kwargs.values()))
 
     new_row = {}
+    if consume > 0:
+        new_row['consume'] = consume
     for k, v in kwargs.items():
         assert k in headers, 'Player {} is not registered, pls check the name!'.format(k)
         new_row[k] = v
-    new_pool = list(all_data.values())[-1]['pool'] + kwargs.pop('pool', 0) - consume
+    daily_report(date, new_row)
+    new_pool = list(all_data.values())[-1]['pool'] + new_row.get('pool', 0) - consume
     new_row['pool'] = round(new_pool, 1)
     all_data[date] = deepcopy(new_row)
-    print('Updated data of {}.'.format(date))
+
     new_row['Date'] = date
     with open(data_file, 'a', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=headers)
         writer.writerow(new_row)
+        print('Updated data of {}.'.format(date))
 
 
 def _draw_bar(data: dict, title1: str, title2: str, filepath: str):
@@ -59,8 +64,11 @@ def _draw_bar(data: dict, title1: str, title2: str, filepath: str):
                  else display_names.get(name, name) for name in names]
     up_color, down_color = random.choice(list(zip(green_colors, red_colors)))
     colors = [up_color if profit > 0 else down_color for profit in profits]
-    if 'pool' in names:
+    try:
         colors[names.index('pool')] = yellow_color
+        colors[names.index('consume')] = yellow_color
+    except:
+        pass
 
     plt.title('{}\n({})'.format(title1, title2))
     plt.bar(nicknames, profits, edgecolor='white', color=colors)
@@ -80,13 +88,16 @@ def _draw_bar(data: dict, title1: str, title2: str, filepath: str):
     plt.close()
 
 
-def daily_report(date: str):
-    assert date in all_data, 'No record on {}, cannot generate daily report!'.format(date)
+def daily_report(date: str, data: dict):
+    non_player_count = 0
+    for key in data.keys():
+        if key in non_players:
+            non_player_count += 1
 
     title1 = '{} Daily Report'.format(date)
-    title2 = '{} players'.format(len(all_data[date]) - 1)
+    title2 = '{} players'.format(len(data) - non_player_count)
     filepath = os.path.join('daily', '{}.png'.format(date))
-    _draw_bar(all_data[date], title1, title2, filepath)
+    _draw_bar(data, title1, title2, filepath)
 
 
 def cumulative_report(dates: list, month='201911', monthly=False):
@@ -94,12 +105,11 @@ def cumulative_report(dates: list, month='201911', monthly=False):
     assert len(mydates) >= 2, 'Less than 2 days in month {}, cannot generate cumulative report!'.format(month)
 
     mydicts = [all_data[date] for date in mydates]
-    sum_dict = {}
+    sum_dict = {'pool': list(all_data.values())[-1]['pool']}
     for mydict in mydicts:
         for k, v in mydict.items():
-            if k != 'pool':
+            if k not in non_players:
                 sum_dict[k] = sum_dict.get(k, 0) + v
-    sum_dict['pool'] = list(all_data.values())[-1]['pool']
 
     title1 = '{}Cumulative Winnings'.format('' if len(month) == 6 else 'Total ')
     title2 = '{} - {}'.format(mydates[0], mydates[-1])
@@ -122,7 +132,6 @@ def cumulative_report(dates: list, month='201911', monthly=False):
 
 def generate_reports(total_report=False):
     dates = list(all_data.keys())
-    daily_report(dates[-1])
     cumulative_report(dates, month='201912', monthly=False)
     if total_report:
         cumulative_report(dates, month='2019')
@@ -131,6 +140,6 @@ def generate_reports(total_report=False):
 if __name__ == '__main__':
     all_data = load_data()
     # update_data('20191209', Denn=237, TP=62, XJ=-248, Man=-135, Monkey=84, pool=39)
-    # update_data(yesterday, XJ=84, XZ=-120, Denn=209, Six=-372, Yi=66, Man=133, pool=48)
+    # update_data(yesterday, XJ=-406, XZ=-164, Denn=308, Six=-366, Yi=159, Man=444, JX=53, HTP=-103, TP=292, Monkey=-400, pool=183, consume=166)
     # update_data(today, ..., pool=26, consume=156)
-    generate_reports()
+    generate_reports(total_report=False)
