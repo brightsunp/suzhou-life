@@ -13,9 +13,9 @@ data_file = 'data\\data.csv'
 headers = ['Date', 'Daxia', 'Denn', 'Bo', 'HTP', 'JX', 'Lian', 'JG',
            'Man', 'Monkey', 'TP', 'Six', 'XJ', 'XZ', 'Yi', 'consume', 'pool']
 non_players = headers[-2:]
-display_names = {'Daxia': '夜雨', 'XJ': '爱屋及乌', 'XZ': '48', 'Six': '铁头鱼',
-                 'Yi': '公仔', 'JX': '小董', 'Denn': '尼斯哥', 'Bo': '思念', 'JG': '刚叔'}
-study_abroad = []
+display_names = {'Daxia': '夜雨', 'XJ': '爱屋及乌', 'XZ': '48', 'Six': '铁头鱼', 'Monkey': 'TM',
+                 'Yi': '公仔', 'JX': '小董', 'Denn': '尼斯哥', 'Bo': '思念', 'JG': '周进刚'}
+study_abroad = ['HTP', 'Daxia']
 
 green_colors = ['#24b292', '#0a6955', '#0b5846', '#073c32', '#71cab5',
                 '#1e9473', '#2fefb3', '#2fa591', '#17856f', '#148588', '#34e4ba']
