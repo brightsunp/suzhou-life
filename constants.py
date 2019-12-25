@@ -14,7 +14,7 @@ headers = ['Date', 'Daxia', 'Denn', 'Bo', 'HTP', 'JX', 'Lian', 'JG',
            'Man', 'Monkey', 'TP', 'Six', 'XJ', 'XZ', 'Yi', 'YY', 'consume', 'pool']
 non_players = headers[-2:]
 display_names = {'Daxia': '夜雨', 'XJ': '爱屋及乌', 'XZ': '48', 'Six': '铁头鱼', 'Monkey': 'TM',
-                 'Yi': '公仔', 'JX': '小董', 'Denn': '尼斯哥', 'Bo': '思念', 'JG': '周进刚', 'YY': '瑜宝'}
+                 'Yi': '公仔', 'JX': '小董', 'Denn': '尼斯哥', 'Bo': '思念', 'JG': '周进刚', 'YY': 'ss'}
 study_abroad = ['HTP']
 
 green_colors = ['#24b292', '#0a6955', '#0b5846', '#073c32', '#71cab5',

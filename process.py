@@ -10,9 +10,9 @@ from copy import deepcopy
 from collections import Counter, OrderedDict
 from constants import *
 import matplotlib.pyplot as plt
-import matplotlib
+import matplotlib as mpl
 
-matplotlib.rcParams['font.family'] = 'Microsoft YaHei'
+mpl.rcParams['font.family'] = 'Microsoft YaHei'
 
 
 def load_data():
@@ -57,31 +57,43 @@ def update_data(date: str, **kwargs):
         print('Updated data of {}.'.format(date))
 
 
-def _draw_bar(data: dict, title1: str, title2: str, filepath: str):
+def _draw(data: dict, title1: str, title2: str, filepath: str, type='bar'):
+    if os.path.isfile(filepath):
+        print('Figure {} exists.'.format(filepath))
+        return
     sorted_data = sorted(data.items(), key=lambda kv: kv[1], reverse=True)
     names, profits = (list(x) for x in list(zip(*sorted_data)))
     nicknames = ['留学{}'.format(study_abroad.index(name) + 1) if name in study_abroad
                  else display_names.get(name, name) for name in names]
-    up_color, down_color = random.choice(list(zip(green_colors, red_colors)))
-    colors = [up_color if profit > 0 else down_color for profit in profits]
-    try:
-        colors[names.index('pool')] = yellow_color
-        colors[names.index('consume')] = yellow_color
-    except:
-        pass
+    green, red = random.choice(list(zip(green_colors, red_colors)))
+
+    colors, expls = None, None
+    if type == 'bar':
+        colors = [green if profit > 0 else red for profit in profits]
+        try:
+            colors[names.index('pool')] = yellow_color
+            colors[names.index('consume')] = yellow_color
+        except:
+            pass
+    else:
+        colors = [red if i < 3 else green for i in range(len(nicknames))]
+        expls = [0.1 if i < 3 else 0 for i in range(len(nicknames))]
 
     plt.title('{}\n({})'.format(title1, title2))
-    plt.bar(nicknames, profits, edgecolor='white', color=colors)
-    plt.xticks(rotation=45)
-    plt.yticks(())
-    for x, y in zip(nicknames, profits):
-        if y > 0:
-            if y < 1:
-                plt.text(x, y + 0.001, '{:.0%}'.format(y), ha='center', va='bottom')
-            else:
+    if type == 'bar':
+        plt.bar(nicknames, profits, edgecolor='white', color=colors)
+        plt.xticks(rotation=45)
+        plt.yticks(())
+        for x, y in zip(nicknames, profits):
+            if y > 0:
                 plt.text(x, y + 0.1, '{}'.format(y), ha='center', va='bottom')
-        else:
-            plt.text(x, y - 0.1, '{}'.format(y), ha='center', va='top')
+            else:
+                plt.text(x, y - 0.1, '{}'.format(y), ha='center', va='top')
+    else:
+        mypie = plt.pie(profits, labels=nicknames, explode=expls, autopct='%1.1f%%', pctdistance=0.8, shadow=True,
+                        colors=colors, textprops=dict(fontsize=8))
+        for wedge in mypie[0]:
+            wedge.set_edgecolor('white')
     plt.tight_layout()
     plt.savefig(filepath)
     print('Figure {} generated.'.format(filepath))
@@ -97,7 +109,7 @@ def daily_report(date: str, data: dict):
     title1 = '{} Daily Report'.format(date)
     title2 = '{} players'.format(len(data) - non_player_count)
     filepath = os.path.join('daily', '{}.png'.format(date))
-    _draw_bar(data, title1, title2, filepath)
+    _draw(data, title1, title2, filepath)
 
 
 def cumulative_report(dates: list, month='201911', monthly=False):
@@ -114,20 +126,19 @@ def cumulative_report(dates: list, month='201911', monthly=False):
     title1 = '{}Cumulative Winnings'.format('' if len(month) == 6 else 'Total ')
     title2 = '{} - {}'.format(mydates[0], mydates[-1])
     filepath = os.path.join('cumulative', '{}.png'.format(title2))
-    _draw_bar(sum_dict, title1, title2, filepath)
+    _draw(sum_dict, title1, title2, filepath)
 
     if monthly:
-        counter = Counter()
+        pr_counter = Counter()
         for mydict in mydicts:
-            players = list(mydict.keys())
-            players.remove('pool')
-            counter += Counter(players)
-        for k in counter:
-            counter[k] /= len(mydicts)
+            for non in non_players:
+                if non in mydict:
+                    del mydict[non]
+            pr_counter += Counter(mydict.keys())
         title1 = 'Participate Rate'
-        title2 = '{} - {} sessions'.format(month, len(mydicts))
+        title2 = '{}: total {} sessions'.format(month, len(mydicts))
         filepath = os.path.join('monthly', '{}_pr.png'.format(month))
-        _draw_bar(counter, title1, title2, filepath)
+        _draw(pr_counter, title1, title2, filepath, type='pie')
 
 
 def generate_reports(total_report=False):
@@ -140,5 +151,6 @@ def generate_reports(total_report=False):
 if __name__ == '__main__':
     all_data = load_data()
     # update_data(yesterday, XJ=152, Six=619, XZ=88, Denn=0, TP=-87, Daxia=-1689, Yi=740, YY=-65, Lian=69, pool=173, consume=139)
+    # update_data(yesterday, XJ=-297, TP=298, XZ=-20, Yi=211, Six=-192)
     # update_data(today, ..., pool=26, consume=156)
     generate_reports(total_report=False)
