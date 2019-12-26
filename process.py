@@ -125,7 +125,7 @@ def cumulative_report(dates: list, month='201911', monthly=False):
 
     title1 = '{}Cumulative Winnings'.format('' if len(month) == 6 else 'Total ')
     title2 = '{} - {}'.format(mydates[0], mydates[-1])
-    filepath = os.path.join('cumulative', '{}.png'.format(title2))
+    filepath = os.path.join('cumulative', '{}.png'.format(title2.replace(' ', '')))
     _draw(sum_dict, title1, title2, filepath)
 
     if monthly:
@@ -150,7 +150,7 @@ def generate_reports(total_report=False):
 
 if __name__ == '__main__':
     all_data = load_data()
-    # update_data(yesterday, XJ=152, Six=619, XZ=88, Denn=0, TP=-87, Daxia=-1689, Yi=740, YY=-65, Lian=69, pool=173, consume=139)
+    # update_data(yesterday, XJ=96, Six=-350, XZ=-256, Denn=235, Man=390, Daxia=125, Yi=0, JX=-263, Lian=-291, pool=314, consume=256)
     # update_data(yesterday, XJ=-297, TP=298, XZ=-20, Yi=211, Six=-192)
     # update_data(today, ..., pool=26, consume=156)
     generate_reports(total_report=False)
