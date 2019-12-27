@@ -150,7 +150,7 @@ def generate_reports(total_report=False):
 
 if __name__ == '__main__':
     all_data = load_data()
-    update_data(yesterday, XJ=13, Six=-352, XZ=158, Daxia=100, Yi=515, JX=32, TP=-688, pool=222, consume=41)
+    # update_data(yesterday, XJ=13, Six=-352, XZ=158, Daxia=100, Yi=515, JX=32, TP=-688, pool=222, consume=41)
     # update_data(yesterday, XJ=-297, TP=298, XZ=-20, Yi=211, Six=-192)
     # update_data(today, ..., pool=26, consume=156)
-    generate_reports(total_report=False)
+    generate_reports(total_report=True)
