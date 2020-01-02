@@ -131,10 +131,8 @@ def cumulative_report(dates: list, month='201911', monthly=False):
     if monthly:
         pr_counter = Counter()
         for mydict in mydicts:
-            for non in non_players:
-                if non in mydict:
-                    del mydict[non]
-            pr_counter += Counter(mydict.keys())
+            players = filter(lambda x: x not in non_players, mydict.keys())
+            pr_counter += Counter(players)
         title1 = 'Participate Rate'
         title2 = '{}: total {} sessions'.format(month, len(mydicts))
         filepath = os.path.join('monthly', '{}_pr.png'.format(month))
@@ -145,12 +143,12 @@ def generate_reports(total_report=False):
     dates = list(all_data.keys())
     cumulative_report(dates, month='201912', monthly=False)
     if total_report:
-        cumulative_report(dates, month='2019')
+        cumulative_report(dates, month='20')
 
 
 if __name__ == '__main__':
     all_data = load_data()
     # update_data(yesterday, XJ=13, Six=-352, XZ=158, Daxia=100, Yi=515, JX=32, TP=-688, pool=222, consume=41)
-    # update_data(yesterday, XJ=-297, TP=298, XZ=-20, Yi=211, Six=-192)
+    # update_data('20191230', JX=89, Denn=182, Man=-300, Daxia=408, Six=-320, YY=-59)
     # update_data(today, ..., pool=26, consume=156)
     generate_reports(total_report=True)
