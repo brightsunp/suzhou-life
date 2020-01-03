@@ -114,7 +114,7 @@ def daily_report(date: str, data: dict):
 
 def cumulative_report(dates: list, month='201911', monthly=False):
     mydates = list(filter(lambda x: x.startswith(month), dates))
-    assert len(mydates) >= 2, 'Less than 2 days in month {}, cannot generate cumulative report!'.format(month)
+    assert len(mydates) >= 2, 'Less than 2 days in month {}, failed to generate cumulative report!'.format(month)
 
     mydicts = [all_data[date] for date in mydates]
     sum_dict = {'pool': list(all_data.values())[-1]['pool']}
@@ -133,7 +133,7 @@ def cumulative_report(dates: list, month='201911', monthly=False):
         for mydict in mydicts:
             players = filter(lambda x: x not in non_players, mydict.keys())
             pr_counter += Counter(players)
-        title1 = 'Participate Rate'
+        title1 = 'Participation Ratio'
         title2 = '{}: total {} sessions'.format(month, len(mydicts))
         filepath = os.path.join('monthly', '{}_pr.png'.format(month))
         _draw(pr_counter, title1, title2, filepath, type='pie')
@@ -141,14 +141,14 @@ def cumulative_report(dates: list, month='201911', monthly=False):
 
 def generate_reports(total_report=False):
     dates = list(all_data.keys())
-    cumulative_report(dates, month='201912', monthly=False)
+    cumulative_report(dates, month='202001', monthly=False)
     if total_report:
         cumulative_report(dates, month='20')
 
 
 if __name__ == '__main__':
     all_data = load_data()
-    # update_data(yesterday, XJ=13, Six=-352, XZ=158, Daxia=100, Yi=515, JX=32, TP=-688, pool=222, consume=41)
+    # update_data(yesterday, YY=95, Daxia=513, Monkey=110, Man=-647, TP=-387, XJ=316)
     # update_data('20191230', JX=89, Denn=182, Man=-300, Daxia=408, Six=-320, YY=-59)
     # update_data(today, ..., pool=26, consume=156)
     generate_reports(total_report=True)
