@@ -148,7 +148,7 @@ def generate_reports(total_report=False):
 
 if __name__ == '__main__':
     all_data = load_data()
-    # update_data(yesterday, Daxia=471, Lian=125, Denn=-355, HTP=154, Six=521, Yi=90, TP=923, XJ=-1000, JX=-1098, XZ=-82, pool=251, consume=160)
+    # update_data(yesterday, Daxia=650, Denn=337, HTP=-500, Six=-927, Yi=-80, TP=31, XJ=87, Monkey=-200, XZ=252, YY=350)
     # update_data('20191230', JX=89, Denn=182, Man=-300, Daxia=408, Six=-320, YY=-59)
     # update_data(today, ..., pool=26, consume=156)
     generate_reports(total_report=True)
