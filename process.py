@@ -148,8 +148,8 @@ def generate_reports(total_report=False):
 
 if __name__ == '__main__':
     all_data = load_data()
-    # update_data(yesterday, Daxia=650, Denn=337, HTP=-500, Six=-927, Yi=-80, TP=31, XJ=87, Monkey=-200, XZ=252, YY=350)
-    # update_data('20200111', XZ=-126-570, Denn=-435, YY=337-400, Lian=412-55, Man=1018-211, TP=-113-448,
-    #             HTP=386+110, Yi=532+446, Six=208-479, JX=-300, XJ=-47, Monkey=-200)
-    # update_data(today, TP=381, XJ=-93, Monkey=493, HTP=-198, Denn=152, JG=-200, YY=355, Lian=-410, Six=-170, Yi=-310)
+    #update_data('20200121', Daxia=708, Denn=-438, TP=-72, XJ=256, Monkey=-410, XZ=-44, YY=0)
+    #update_data('20200123', Daxia=-290, Denn=-800, TP=1082, XJ=132, Six=-124)
+    update_data('20200124', XZ=98+187-600-600, Denn=466-29-200, YY=-400-400, Man=590+196-1200, TP=88+735+43-106, Daxia=133+848+511,
+                Yi=72-179-200, Six=147-43, JX=107-457, XJ=26-211+11+767, Monkey=-400)
     generate_reports(total_report=True)
