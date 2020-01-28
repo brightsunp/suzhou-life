@@ -141,15 +141,19 @@ def cumulative_report(dates: list, month='201911', monthly=False):
 
 def generate_reports(total_report=False):
     dates = list(all_data.keys())
-    cumulative_report(dates, month='202001', monthly=False)
+    #cumulative_report(dates, month='202001', monthly=False)
     if total_report:
         cumulative_report(dates, month='20')
 
 
 if __name__ == '__main__':
     all_data = load_data()
-    #update_data('20200121', Daxia=708, Denn=-438, TP=-72, XJ=256, Monkey=-410, XZ=-44, YY=0)
-    #update_data('20200123', Daxia=-290, Denn=-800, TP=1082, XJ=132, Six=-124)
-    update_data('20200124', XZ=98+187-600-600, Denn=466-29-200, YY=-400-400, Man=590+196-1200, TP=88+735+43-106, Daxia=133+848+511,
-                Yi=72-179-200, Six=147-43, JX=107-457, XJ=26-211+11+767, Monkey=-400)
+    #update_data('20200124', XZ=, Denn=, YY=, Man=, Daxia=,
+    #            Yi=, Six=, JX=, XJ=, TP=)
+    #update_data('20200125', XZ=81+2-800-13, Denn=86-107, Man=510-789-12-400, Daxia=91+154,
+    #            Yi=318+8-200, Six=445-78-68, JX=91+59+598-301, XJ=500+61+126, TP=149-102-355-54)
+    #update_data('20200126', XZ=696-366, Denn=39-319, YY=-200-400, Man=61-113, Daxia=-121-422,
+    #            Yi=386, Six=628+395, JX=353+31, XJ=-600-400, TP=352)
+    update_data('20200127', XZ=15, Denn=-76-399, Man=-400, Daxia=-229,
+                Yi=-88, Six=349+723, JX=-600, XJ=139+1505, TP=-339-600)
     generate_reports(total_report=True)
