@@ -45,7 +45,7 @@ def update_data(date: str, **kwargs):
     for k, v in kwargs.items():
         assert k in headers, 'Player {} is not registered, pls check the name!'.format(k)
         new_row[k] = v
-    daily_report(date, new_row)
+    #daily_report(date, new_row)
     new_pool = list(all_data.values())[-1]['pool'] + new_row.get('pool', 0) - consume
     new_row['pool'] = round(new_pool, 1)
     all_data[date] = deepcopy(new_row)
@@ -141,19 +141,12 @@ def cumulative_report(dates: list, month='201911', monthly=False):
 
 def generate_reports(total_report=False):
     dates = list(all_data.keys())
-    #cumulative_report(dates, month='202001', monthly=False)
+    #cumulative_report(dates, month='202002', monthly=True)
     if total_report:
         cumulative_report(dates, month='20')
 
 
 if __name__ == '__main__':
     all_data = load_data()
-    #update_data('20200124', XZ=, Denn=, YY=, Man=, Daxia=,
-    #            Yi=, Six=, JX=, XJ=, TP=)
-    #update_data('20200125', XZ=81+2-800-13, Denn=86-107, Man=510-789-12-400, Daxia=91+154,
-    #            Yi=318+8-200, Six=445-78-68, JX=91+59+598-301, XJ=500+61+126, TP=149-102-355-54)
-    #update_data('20200126', XZ=696-366, Denn=39-319, YY=-200-400, Man=61-113, Daxia=-121-422,
-    #            Yi=386, Six=628+395, JX=353+31, XJ=-600-400, TP=352)
-    update_data('20200127', XZ=15, Denn=-76-399, Man=-400, Daxia=-229,
-                Yi=-88, Six=349+723, JX=-600, XJ=139+1505, TP=-339-600)
+    #update_data('20200131', XZ=-171, Denn=-182, YY=-189, Daxia=-2123, Yi=109, Six=712, JX=1396, XJ=69, TP=361, Monkey=18)
     generate_reports(total_report=True)
