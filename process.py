@@ -45,7 +45,7 @@ def update_data(date: str, **kwargs):
     for k, v in kwargs.items():
         assert k in headers, 'Player {} is not registered, pls check the name!'.format(k)
         new_row[k] = v
-    #daily_report(date, new_row)
+    daily_report(date, new_row)
     new_pool = list(all_data.values())[-1]['pool'] + new_row.get('pool', 0) - consume
     new_row['pool'] = round(new_pool, 1)
     all_data[date] = deepcopy(new_row)
@@ -148,5 +148,6 @@ def generate_reports(total_report=False):
 
 if __name__ == '__main__':
     all_data = load_data()
-    #update_data('20200131', XZ=-171, Denn=-182, YY=-189, Daxia=-2123, Yi=109, Six=712, JX=1396, XJ=69, TP=361, Monkey=18)
+    #update_data('20200201', XZ=91, Denn=-46, Daxia=230, Yi=-200, Six=-33, JX=691, XJ=-731, TP=130, Monkey=-132)
+    #update_data('20200202', XZ=11, Denn=-174, Daxia=1202, Yi=329, Six=-1237, JX=-200, XJ=-200, TP=269)
     generate_reports(total_report=True)
