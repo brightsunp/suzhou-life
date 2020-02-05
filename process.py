@@ -141,13 +141,22 @@ def cumulative_report(dates: list, month='201911', monthly=False):
 
 def generate_reports(total_report=False):
     dates = list(all_data.keys())
-    #cumulative_report(dates, month='202002', monthly=True)
+    # cumulative_report(dates, month='202002', monthly=True)
     if total_report:
         cumulative_report(dates, month='20')
 
 
+# reserve the newest 15 sessions
+def clear_folder(buffer=15):
+    del_files = [os.path.join('daily', file) for file in os.listdir('daily')[:-buffer]]
+    for del_file in del_files:
+        os.remove(del_file)
+        print('Delete figure {}'.format(del_file))
+
+
 if __name__ == '__main__':
     all_data = load_data()
-    #update_data('20200201', XZ=91, Denn=-46, Daxia=230, Yi=-200, Six=-33, JX=691, XJ=-731, TP=130, Monkey=-132)
-    #update_data('20200202', XZ=11, Denn=-174, Daxia=1202, Yi=329, Six=-1237, JX=-200, XJ=-200, TP=269)
+    # update_data('20200201', XZ=91, Denn=-46, Daxia=230, Yi=-200, Six=-33, JX=691, XJ=-731, TP=130, Monkey=-132)
+    # update_data('20200202', XZ=11, Denn=-174, Daxia=1202, Yi=329, Six=-1237, JX=-200, XJ=-200, TP=269)
     generate_reports(total_report=True)
+    clear_folder()
