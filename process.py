@@ -139,7 +139,7 @@ def cumulative_report(dates: list, month='201911', monthly=False):
         _draw(pr_counter, title1, title2, filepath, type='pie')
 
 
-def generate_reports(total_report=False):
+def generate_reports():
     dates = list(all_data.keys())
     # cumulative_report(dates, month='202004')
     if total_report:
@@ -152,10 +152,17 @@ def clear_folder(buffer=15):
     for del_file in del_files:
         os.remove(del_file)
         print('Delete figure {}'.format(del_file))
+    
+    if total_report:
+        reports = [os.path.join('cumulative', file) for file in filter(lambda x: x.startswith('20191101'), os.listdir('cumulative'))]
+        assert len(reports) == 3
+        os.remove(reports[1])
+        print('Delete figure {}'.format(reports[1]))
 
 
 if __name__ == '__main__':
+    total_report = True
     all_data = load_data()
-    # update_data('20200428', TP=-400, Lian=-66, Six=-62, XZ=17, Yi=490, Denn=157, JX=-136)
-    generate_reports(total_report=True)
+    # update_data('20200506', TP=-106, Six=403, XZ=40, Yi=-510, Denn=-18, HTP=191)
+    generate_reports()
     clear_folder()
