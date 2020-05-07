@@ -8,7 +8,7 @@ import datetime
 
 today = datetime.date.today().strftime('%Y%m%d')
 yesterday = (datetime.date.today() - datetime.timedelta(days=1)).strftime('%Y%m%d')
-data_file = 'data\\data.csv'
+data_file, cum_dir, mon_dir, day_dir = 'data\\data.csv', 'cumulative', 'monthly', 'daily'
 
 headers = ['Date', 'Daxia', 'Denn', 'Bo', 'HTP', 'JX', 'Lian', 'JG',
            'Man', 'Monkey', 'TP', 'Six', 'XJ', 'XZ', 'Yi', 'YY', 'consume', 'pool']

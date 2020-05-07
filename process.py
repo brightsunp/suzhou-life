@@ -108,7 +108,7 @@ def daily_report(date: str, data: dict):
 
     title1 = '{} Daily Report'.format(date)
     title2 = '{} players'.format(len(data) - non_player_count)
-    filepath = os.path.join('daily', '{}.png'.format(date))
+    filepath = os.path.join(day_dir, '{}.png'.format(date))
     _draw(data, title1, title2, filepath)
 
 
@@ -125,7 +125,7 @@ def cumulative_report(dates: list, month='201911', monthly=False):
 
     title1 = '{}Cumulative Winnings'.format('' if len(month) == 6 else 'Total ')
     title2 = '{} - {}'.format(mydates[0], mydates[-1])
-    filepath = os.path.join('cumulative', '{}.png'.format(title2.replace(' ', '')))
+    filepath = os.path.join(cum_dir, '{}.png'.format(title2.replace(' ', '')))
     _draw(sum_dict, title1, title2, filepath)
 
     if monthly:
@@ -135,7 +135,7 @@ def cumulative_report(dates: list, month='201911', monthly=False):
             pr_counter += Counter(players)
         title1 = 'Participation Ratio'
         title2 = '{}: total {} sessions'.format(month, len(mydicts))
-        filepath = os.path.join('monthly', '{}_pr.png'.format(month))
+        filepath = os.path.join(mon_dir, '{}_pr.png'.format(month))
         _draw(pr_counter, title1, title2, filepath, type='pie')
 
 
@@ -146,18 +146,17 @@ def generate_reports():
         cumulative_report(dates, month='20')
 
 
-# reserve the newest 15 sessions
 def clear_folder(buffer=15):
-    del_files = [os.path.join('daily', file) for file in os.listdir('daily')[:-buffer]]
+    del_files = [os.path.join(day_dir, file) for file in os.listdir(day_dir)[:-buffer]]
     for del_file in del_files:
         os.remove(del_file)
         print('Delete figure {}'.format(del_file))
     
     if total_report:
-        reports = [os.path.join('cumulative', file) for file in filter(lambda x: x.startswith('20191101'), os.listdir('cumulative'))]
-        assert len(reports) == 3
-        os.remove(reports[1])
-        print('Delete figure {}'.format(reports[1]))
+        reports = [os.path.join(cum_dir, file) for file in filter(lambda x: x.startswith('20191101'), os.listdir(cum_dir))]
+        if len(reports) == 3:
+            os.remove(reports[1])
+            print('Delete figure {}'.format(reports[1]))
 
 
 if __name__ == '__main__':
