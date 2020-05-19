@@ -43,7 +43,7 @@ def update_data(date: str, **kwargs):
     if consume > 0:
         new_row['consume'] = consume
     for k, v in kwargs.items():
-        assert k in headers, 'Player {} is not registered, pls check the name!'.format(k)
+        assert k in headers, 'Player {} is not registered in constants.py, pls check the name!'.format(k)
         new_row[k] = v
     daily_report(date, new_row)
     new_pool = list(all_data.values())[-1]['pool'] + new_row.get('pool', 0) - consume
@@ -162,6 +162,6 @@ def clear_folder(buffer=15):
 if __name__ == '__main__':
     total_report = True
     all_data = load_data()
-    update_data('20200515', Six=142, XZ=-310, Yi=-158, Denn=416, Lian=-90)
+    update_data('20200518', Six=112, XJ=125, Yi=-160, Denn=-400, Lian=-40, JX=-400, YY=39, ZW=-366, Daxia=1090)
     generate_reports()
     clear_folder()
