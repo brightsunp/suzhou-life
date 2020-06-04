@@ -71,8 +71,8 @@ def _draw(data: dict, title1: str, title2: str, filepath: str, type='bar'):
     if type == 'bar':
         colors = [green if profit > 0 else red for profit in profits]
         try:
-            colors[names.index('pool')] = yellow_color
             colors[names.index('consume')] = yellow_color
+            colors[names.index('pool')] = yellow_color
         except:
             pass
     else:
@@ -162,6 +162,6 @@ def clear_folder(buffer=15):
 if __name__ == '__main__':
     total_report = True
     all_data = load_data()
-    update_data('20200520', XZ=271, Yi=-410, Denn=-88, YY=259, HTP=127, Lian=-159)
+    update_data('20200603', XZ=206, Yi=497, Denn=-318, YY=-200, HTP=679, TP=212, ZW=-400, Daxia=-817, Six=141, consume=99)
     generate_reports()
     clear_folder()
