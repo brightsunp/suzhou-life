@@ -72,9 +72,14 @@ def _draw(data: dict, title1: str, title2: str, filepath: str, type='bar'):
         colors = [green if profit > 0 else red for profit in profits]
         try:
             colors[names.index('consume')] = yellow_color
+        except:
+            pass
+        
+        try:
             colors[names.index('pool')] = yellow_color
         except:
             pass
+        
     else:
         colors = [red if i < 3 else green for i in range(len(nicknames))]
         expls = [0.1 if i < 3 else 0 for i in range(len(nicknames))]
@@ -141,7 +146,7 @@ def cumulative_report(dates: list, month='201911', monthly=False):
 
 def generate_reports():
     dates = list(all_data.keys())
-    # cumulative_report(dates, month='202005')
+    cumulative_report(dates, month='202005')
     if total_report:
         cumulative_report(dates, month='20')
 
@@ -162,6 +167,6 @@ def clear_folder(buffer=15):
 if __name__ == '__main__':
     total_report = True
     all_data = load_data()
-    update_data('20200603', XZ=206, Yi=497, Denn=-318, YY=-200, HTP=679, TP=212, ZW=-400, Daxia=-817, Six=141, consume=99)
+    # update_data('20200605', XZ=244, Yi=-74, Denn=-42, HTP=462, TP=-600, ZW=-39, Daxia=49, consume=64)
     generate_reports()
     clear_folder()
