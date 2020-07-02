@@ -146,7 +146,7 @@ def cumulative_report(dates: list, month='201911', draw_pie=False):
 
 def generate_reports():
     dates = list(all_data.keys())
-    cumulative_report(dates, month='202006')
+    cumulative_report(dates, month='202007')
     if total_report:
         cumulative_report(dates, month='20')
 
@@ -167,7 +167,6 @@ def clear_folder(buffer=15):
 if __name__ == '__main__':
     total_report = True
     all_data = load_data()
-    update_data('20200629', XZ=-75, Denn=234, HTP=970, JX=-114, XJ=-410, Yi=-386, Lian=-68, Six=-151)
-    update_data('20200630', XZ=299, Denn=-400, Daxia=-431, TP=-310, HTP=1581, ZW=105, Yi=-210, Zack=-184, Six=-450)
+    update_data('20200701', XZ=-186, TP=147, JX=410, XJ=411, Yi=-270, YY=-173, Six=-339)
     generate_reports()
     clear_folder()
