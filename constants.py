@@ -11,10 +11,10 @@ yesterday = (datetime.date.today() - datetime.timedelta(days=1)).strftime('%Y%m%
 data_file, cum_dir, mon_dir, day_dir = 'data\\data.csv', 'cumulative', 'monthly', 'daily'
 
 headers = ['Date', 'Daxia', 'Denn', 'ZW', 'HTP', 'JX', 'Lian', 'Zack',
-           'Man', 'Monkey', 'TP', 'Six', 'XJ', 'XZ', 'Yi', 'YY', 'consume', 'pool']
+           'Man', 'Monkey', 'TP', 'Six', 'XJ', 'XZ', 'Yi', 'YY', 'HY', 'consume', 'pool']
 non_players = headers[-2:]
 display_names = {'Daxia': '夜雨', 'XJ': '爱屋及乌', 'XZ': 'TZ', 'Six': 'TF', 'Monkey': 'TM',
-                 'Yi': '公仔', 'JX': 'TD', 'Denn': '尼斯哥', 'ZW': '泽威', 'YY': 'ss'}
+                 'Yi': '公仔', 'JX': 'TD', 'Denn': '尼斯哥', 'ZW': '泽威', 'YY': 'ss', 'HY': 'WHY'}
 study_abroad = []
 
 green_colors = ['#24b292', '#0a6955', '#0b5846', '#073c32', '#71cab5',
