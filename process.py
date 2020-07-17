@@ -167,6 +167,6 @@ def clear_folder(buffer=15):
 if __name__ == '__main__':
     total_report = True
     all_data = load_data()
-    update_data('20200715', XZ=-610, Six=69, TP=396, Denn=343, Lian=-84, Yi=0, Monkey=-114)
+    update_data('20200716', XZ=-400, Six=-31, TP=101, Denn=227, Daxia=1003, XJ=-800, HTP=-600, YY=500)
     generate_reports()
     clear_folder()
