@@ -117,7 +117,7 @@ def daily_report(date: str, data: dict):
     _draw(data, title1, title2, filepath)
 
 
-def cumulative_report(dates: list, month='201911', draw_pie=False):
+def cumulative_report(dates: list, month='201911'):
     mydates = list(filter(lambda x: x.startswith(month), dates))
     assert len(mydates) >= 2, 'Less than 2 days in month {}, failed to generate cumulative report!'.format(month)
 
@@ -132,16 +132,6 @@ def cumulative_report(dates: list, month='201911', draw_pie=False):
     title2 = '{} - {}'.format(mydates[0], mydates[-1])
     filepath = os.path.join(cum_dir, '{}.png'.format(title2.replace(' ', '')))
     _draw(sum_dict, title1, title2, filepath)
-
-    if draw_pie:
-        pr_counter = Counter()
-        for mydict in mydicts:
-            players = filter(lambda x: x not in non_players, mydict.keys())
-            pr_counter += Counter(players)
-        title1 = 'Participation Ratio'
-        title2 = '{}: total {} sessions'.format(month, len(mydicts))
-        filepath = os.path.join(mon_dir, '{}_pr.png'.format(month))
-        _draw(pr_counter, title1, title2, filepath, type='pie')
 
 
 def generate_reports():
@@ -167,6 +157,7 @@ def clear_folder(buffer=15):
 if __name__ == '__main__':
     total_report = True
     all_data = load_data()
-    update_data('20200716', XZ=-400, Six=-31, TP=101, Denn=227, Daxia=1003, XJ=-800, HTP=-600, YY=500)
+    update_data('20200717', XZ=283, Six=-667, TP=90, Zack=-614, XJ=393, JX=365, Monkey=-280, Yi=12, YY=528, ZW=-110)
+    update_data('20200719', XZ=469, Six=312, TP=487, Denn=-621, Daxia=1440, XJ=-400, HTP=220, YY=-75, Man=-200, Yi=-417, Zack=-1215)
     generate_reports()
     clear_folder()
