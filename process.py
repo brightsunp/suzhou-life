@@ -149,7 +149,7 @@ def clear_folder(buffer=15):
     
     if total_report:
         reports = [os.path.join(cum_dir, file) for file in filter(lambda x: x.startswith('20191101'), os.listdir(cum_dir))]
-        if len(reports) == 4:
+        if len(reports) == 3:
             os.remove(reports[1])
             print('Delete figure {}'.format(reports[1]))
 
@@ -157,6 +157,6 @@ def clear_folder(buffer=15):
 if __name__ == '__main__':
     total_report = True
     all_data = load_data()
-    update_data('20200723', XZ=-500, TP=191, Zack=212, XJ=-326, Monkey=-236, Yi=272, Denn=-106, Daxia=493)
+    update_data('20200726', XZ=77-300-200, YY=-200, HTP=343-200, TP=300-200-442, Zack=-271, XJ=400, Yi=245, HY=166, Denn=800-300-800, Daxia=900-426, Man=-300-200-200, Six=1308-300-200)
     generate_reports()
     clear_folder()
